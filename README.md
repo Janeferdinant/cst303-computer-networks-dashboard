@@ -4,6 +4,7 @@
 > **Course Code:** CST303 COMPUTER NETWORKS & PCCSL507 NETWORKS LABORATORY  
 > **Author & Educator:** Jane Rose | Assistant Professor, Department of Computer Science and Engineering  
 > **Repository:** [https://github.com/Janeferdinant/cst303-computer-networks-dashboard](https://github.com/Janeferdinant/cst303-computer-networks-dashboard)  
+> **Live Demo (Vercel):** [https://cst303-computer-networks-dashboard.vercel.app](https://cst303-computer-networks-dashboard.vercel.app)  
 
 ---
 

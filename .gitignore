@@ -1,0 +1,12 @@
+# Dependencies & Logs
+node_modules/
+.system_generated/
+*.log
+
+# Scratch / Temp Data
+scratch/
+.superpowers/
+
+# Local Environment
+.env.local
+.vercel/

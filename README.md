@@ -3,6 +3,7 @@
 > **APJ Abdul Kalam Technological University (KTU) • B.Tech CSE (2019 Scheme)**  
 > **Course Code:** CST303 COMPUTER NETWORKS & PCCSL507 NETWORKS LABORATORY  
 > **Author & Educator:** Jane Rose | Assistant Professor, Department of Computer Science and Engineering  
+> **Repository:** [https://github.com/Janeferdinant/cst303-computer-networks-dashboard](https://github.com/Janeferdinant/cst303-computer-networks-dashboard)  
 
 ---
 
@@ -10,7 +11,44 @@
 
 **NetVerse 3D** is a production-grade, responsive, 3D interactive learning platform and examination solver built to transform abstract computer networking theorems into immersive, tactile WebGL visualizations, real-time algorithmic simulators, educational games, and recruiter-ready portfolio projects.
 
-Unlike static course websites or markdown notes, NetVerse 3D provides a **futuristic liquid-glass and iridescent glassmorphic interface** with full dark and light mode support, scientifically accurate 3D physics (Snell's Law, OSPF hierarchical flooding, CSMA/CD collision boundaries), and verified model answers mapped directly to official university evaluation keys.
+Built exclusively for **APJ Abdul Kalam Technological University (KTU) CST303 Computer Networks**, the platform features a **futuristic liquid-glass and iridescent glassmorphic interface** with full dark and light theme support, scientifically accurate 3D physics (Snell's Law in optical fibers, OSPF hierarchical flooding, CSMA/CD collision boundaries), and verified model answers mapped directly to official university evaluation keys.
+
+---
+
+## 📁 Project Architecture & Directory Structure
+
+```
+cst303-computer-networks-dashboard/
+├── index.html                           # Single Page Application entry point
+├── README.md                            # Comprehensive platform documentation
+├── .gitignore                           # Git ignore rules for clean repository
+├── css/
+│   └── style.css                        # Design System: Liquid Glassmorphism & Tokens
+├── js/
+│   ├── app.js                           # Core application coordinator & view router
+│   ├── data/
+│   │   ├── syllabusData.js              # KTU CST303 Modules 1-5 & PCCSL507 Lab data
+│   │   ├── examSolutionsData.js         # Dec 2022 & Dec 2023 verified exam solutions
+│   │   ├── industryResearchData.js      # Case studies, advancements & research papers
+│   │   └── careerData.js                # Industry tool stack, job roles & salary data
+│   └── modules/
+│       ├── threeVisualizer.js           # Three.js 3D WebGL interactive scenes
+│       ├── conceptLab.js                # CRC, Sliding Window, Subnetting & Dijkstra
+│       ├── motionGraphics.js            # 60fps Canvas engine (Token Bucket, TCP AIMD, ARP, DNS)
+│       ├── syllabusExplorer.js          # Curriculum browser with Bloom's taxonomy
+│       ├── examSolver.js                # Model answer generator with printable view
+│       ├── educationalGames.js          # 7 Interactive games (A through G)
+│       ├── knowledgeGraph.js            # Force-directed concept relationship graph
+│       ├── industryResearchExplorer.js  # Hyperscale architectures & verified DOIs
+│       ├── careerSalaryExplorer.js      # Kerala (Infopark/Technopark) & Global salaries
+│       └── portfolioProject.js          # NetPulse SDN & Topology Analyzer MVP
+└── docs/
+    ├── superpowers/
+    │   └── plans/                       # Architectural design & implementation plans
+    └── reference_materials/
+        ├── question_papers/             # KTU university question papers & schemes (2018-2023)
+        └── lab_manuals/                 # Vidya Academy PCCSL507 OSPF & RIPv2 manuals
+```
 
 ---
 
@@ -29,7 +67,7 @@ Unlike static course websites or markdown notes, NetVerse 3D provides a **futuri
 - **PCCSL507 Networks Lab:** Experiment 14 (OSPF Routing) and Experiment 13 (RIPv2 Routing) on Cisco 2811 routers.
 
 ### 3. Interactive Concept Laboratory
-- **CRC Generator & Verifier:** Step-by-step Modulo-2 binary polynomial division showing quotients, intermediate remainders, and frame validation (solves CST303 Dec 2023 Q14b).
+- **CRC Generator & Verifier:** Step-by-step Modulo-2 binary polynomial division showing quotients, intermediate remainders, and frame validation (solves CST303 Dec 2023 Q14b: $10011101$ with $x^3 + 1 \implies$ FCS $100$, Codeword $10011101100$).
 - **Sliding Window Protocol Simulator:** Live visual execution of Go-Back-N ($W_s = 4, W_r = 1$), Selective Repeat ($W_s = W_r = 4$), and Stop-and-Wait ($W=1$), with simulated frame drops and timeout rewind logs.
 - **IPv4 Subnetting & CIDR Calculator:** Instant calculation of custom subnet masks, network IDs, directed broadcasts, and usable host counts ($2^h - 2$).
 - **Dijkstra Shortest Path Router:** Computes optimal forwarding tables and path costs for a 6-node network graph.
@@ -44,7 +82,7 @@ Unlike static course websites or markdown notes, NetVerse 3D provides a **futuri
 ### 5. Motion Graphics Engine (HTML5 Canvas & 60fps Animation)
 - **Token Bucket Traffic Shaping:** Visualizes constant token arrival rate $\rho$ regulating bursty incoming traffic into smooth transmission streams.
 - **TCP AIMD Congestion Control:** Real-time dynamic graph of `cwnd` vs. RTT illustrating exponential Slow Start, linear Congestion Avoidance, and Fast Recovery.
-- **ARP Resolution Flow:** Broadcast request (FF:FF:FF:FF:FF:FF) and unicast reply sequence.
+- **ARP Resolution Flow:** Broadcast request (`FF:FF:FF:FF:FF:FF`) and unicast reply sequence.
 - **DNS Recursive Resolution:** Hierarchical query resolution across Client, Local Resolver, Root DNS, TLD, and Authoritative servers.
 
 ### 6. Official Question-Paper Solver
@@ -85,22 +123,22 @@ Unlike static course websites or markdown notes, NetVerse 3D provides a **futuri
 
 ## 🛠️ Technology Stack
 
-- **Frontend Core:** HTML5, Modern Vanilla CSS3 (Custom Glassmorphism Design System)
+- **Frontend Core:** HTML5, Modern Vanilla CSS3 (Custom Liquid Glassmorphism Design System)
 - **3D Graphics:** Three.js (r128 WebGL Renderer with custom Orbit interaction)
 - **2D Canvas Engines:** HTML5 2D Canvas with requestAnimationFrame loops
-- **Typography:** Google Fonts (Exo 2 for futuristic headings, Roboto Mono for technical data)
+- **Typography:** Google Fonts (Exo 2 for headings, Roboto Mono for technical data)
 - **State Persistence:** LocalStorage for dark/light theme and exam question checklists
-- **Deployment:** Fully static, zero-build-required, zero-dependency bundle
+- **Deployment:** Vercel Edge Network, Zero-build static architecture
 
 ---
 
 ## 💻 Setup & Local Development Instructions
 
-NetVerse 3D is designed to run seamlessly in any modern web browser without requiring complex build chains.
+NetVerse 3D is designed to run in any modern web browser without requiring complex build chains.
 
 ### 1. Prerequisites
 - A modern browser supporting WebGL (Google Chrome, Microsoft Edge, Firefox, or Safari).
-- Python 3 or Node.js to serve files locally (recommended to enable ES module imports).
+- Python 3 or Node.js to serve files locally (enables ES module imports).
 
 ### 2. Running Locally
 
@@ -110,17 +148,17 @@ NetVerse 3D is designed to run seamlessly in any modern web browser without requ
 cd c:\Users\Asus\Downloads\ds
 
 # Start a local HTTP server
-py -m http.server 3000
+py -m http.server 8090
 ```
 
 **Using Node.js:**
 ```bash
-npx serve -l 3000 .
+npx serve -l 8090 .
 ```
 
 Open your browser and navigate to:
 ```
-http://localhost:3000
+http://localhost:8090
 ```
 
 ---

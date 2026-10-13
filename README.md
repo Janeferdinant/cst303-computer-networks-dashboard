@@ -1,170 +1,179 @@
-# NetVerse 3D — CST303 Computer Networks Interactive Learning Platform
+# NetVerse 3D: an interactive 3D learning dashboard for KTU CST303 Computer Networks
 
-> **APJ Abdul Kalam Technological University (KTU) • B.Tech CSE (2019 Scheme)**  
-> **Course Code:** CST303 COMPUTER NETWORKS & PCCSL507 NETWORKS LABORATORY  
-> **Author & Educator:** Jane Rose | Assistant Professor, Department of Computer Science and Engineering  
-> **Repository:** [https://github.com/Janeferdinant/cst303-computer-networks-dashboard](https://github.com/Janeferdinant/cst303-computer-networks-dashboard)  
-> **Live Demo (Vercel):** [https://cst303-computer-networks-dashboard.vercel.app](https://cst303-computer-networks-dashboard.vercel.app)  
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![Live demo](https://img.shields.io/badge/Live%20demo-Vercel-black.svg)](https://cst303-computer-networks-dashboard.vercel.app)
 
----
+## Overview
 
-## 🌟 Executive Overview
+NetVerse 3D is a static web app I built for teaching CST303 Computer Networks (APJ Abdul Kalam Technological University, B.Tech CSE, 2019 scheme). It turns syllabus topics into things students can operate: protocol simulators, orbitable 3D scenes, animated mechanisms, games and worked past-paper solutions. It runs in any modern browser with no build step and no backend.
 
-**NetVerse 3D** is a production-grade, responsive, 3D interactive learning platform and examination solver built to transform abstract computer networking theorems into immersive, tactile WebGL visualizations, real-time algorithmic simulators, educational games, and recruiter-ready portfolio projects.
+## Demo
 
-Built exclusively for **APJ Abdul Kalam Technological University (KTU) CST303 Computer Networks**, the platform features a **futuristic liquid-glass and iridescent glassmorphic interface** with full dark and light theme support, scientifically accurate 3D physics (Snell's Law in optical fibers, OSPF hierarchical flooding, CSMA/CD collision boundaries), and verified model answers mapped directly to official university evaluation keys.
+Live: https://cst303-computer-networks-dashboard.vercel.app
 
----
+| Overview, 1280 px | Overview, 390 px | Worked solution with rendered maths, 390 px |
+|---|---|---|
+| ![Overview at 1280 px](docs/screenshots/overview-1280.png) | ![Overview at 390 px](docs/screenshots/overview-390.png) | ![Exam solver at 390 px](docs/screenshots/exam-solver-390.png) |
 
-## 📁 Project Architecture & Directory Structure
+## Problem statement
 
-```
-cst303-computer-networks-dashboard/
-├── index.html                           # Single Page Application entry point
-├── README.md                            # Comprehensive platform documentation
-├── .gitignore                           # Git ignore rules for clean repository
-├── css/
-│   └── style.css                        # Design System: Liquid Glassmorphism & Tokens
-├── js/
-│   ├── app.js                           # Core application coordinator & view router
-│   ├── data/
-│   │   ├── syllabusData.js              # KTU CST303 Modules 1-5 & PCCSL507 Lab data
-│   │   ├── examSolutionsData.js         # Dec 2022 & Dec 2023 verified exam solutions
-│   │   ├── industryResearchData.js      # Case studies, advancements & research papers
-│   │   └── careerData.js                # Industry tool stack, job roles & salary data
-│   └── modules/
-│       ├── threeVisualizer.js           # Three.js 3D WebGL interactive scenes
-│       ├── conceptLab.js                # CRC, Sliding Window, Subnetting & Dijkstra
-│       ├── motionGraphics.js            # 60fps Canvas engine (Token Bucket, TCP AIMD, ARP, DNS)
-│       ├── syllabusExplorer.js          # Curriculum browser with Bloom's taxonomy
-│       ├── examSolver.js                # Model answer generator with printable view
-│       ├── educationalGames.js          # 7 Interactive games (A through G)
-│       ├── knowledgeGraph.js            # Force-directed concept relationship graph
-│       ├── industryResearchExplorer.js  # Hyperscale architectures & verified DOIs
-│       ├── careerSalaryExplorer.js      # Kerala (Infopark/Technopark) & Global salaries
-│       └── portfolioProject.js          # NetPulse SDN & Topology Analyzer MVP
-└── docs/
-    ├── superpowers/
-    │   └── plans/                       # Architectural design & implementation plans
-    └── reference_materials/
-        ├── question_papers/             # KTU university question papers & schemes (2018-2023)
-        └── lab_manuals/                 # Vidya Academy PCCSL507 OSPF & RIPv2 manuals
+Computer networks courses lean on diagrams and hand calculations (CRC division, sliding windows, subnetting, shortest paths). Students get the answer without seeing the mechanism. This dashboard lets them change the inputs and watch the mechanism run.
+
+## Approach
+
+A single-page app (`index.html`) with a small view router (`js/app.js`) and one ES module per feature. Everything is computed in the browser.
+
+```mermaid
+flowchart LR
+  A[index.html] --> B[js/app.js router]
+  B --> C[Concept Lab: CRC, sliding window, subnetting, Dijkstra]
+  B --> D[Three.js 3D gallery]
+  B --> E[Canvas motion graphics]
+  B --> F[Question-paper solver]
+  F --> G[js/lib/richText.js + KaTeX]
+  C --> H[js/lib/subnet.js]
+  B --> I[Games, knowledge graph, industry views, NetPulse lab]
 ```
 
----
+The 15 views are:
 
-## 🚀 Key Platform Features & Modules
+1. **Overview**: entry page with quick links.
+2. **Syllabus Explorer**: Modules 1 to 5 and the PCCSL507 lab, browsable by topic.
+3. **Concept Laboratory**:
+   - CRC generator and verifier (modulo-2 division, step by step)
+   - Sliding window simulator (Stop-and-Wait, Go-Back-N, Selective Repeat) with frame loss and timeout
+   - IPv4 subnetting and CIDR calculator
+   - Dijkstra shortest-path router on a 6-node graph
+4. **3D WebGL Gallery** (Three.js): topologies, optical-fibre total internal reflection, OSI encapsulation, OSPF areas, datagram versus virtual circuit.
+5. **Motion Graphics** (Canvas): token bucket, TCP AIMD, ARP, DNS.
+6. **Question Solver**: worked solutions to selected questions from the December 2022 and December 2023 papers, with a concise/detailed toggle, marking notes, a mastery checklist stored in `localStorage` and a print view.
+7. **Educational Games**: seven games (A to G).
+8. **Knowledge Graph**: force-directed map of protocols and concepts.
+9. **Real-World Apps**, 10. **Latest Advancements**, 11. **Research Explorer**: case studies, recent developments and cited papers with DOIs.
+12. **Industry Tools**, 13. **Career & Salary**: tools used in practice and indicative salary ranges (not independently verified).
+14. **NetPulse**: a simulated SDN topology with packet injection, link failure and generated Cisco IOS configuration.
+15. **References**: textbooks and RFCs.
 
-### 1. Overview & Quick Access Dashboard
-- Real-time statistics tracking 5 theory modules, exam coverage, 7 interactive games, and 3D scenes.
-- Quick launchers for concept simulations, university question papers, and the SDN portfolio MVP.
+### Subnetting maths
 
-### 2. Syllabus Explorer (Modules 1–5 & Lab Practicals)
-- **Module 1:** Building a Network, Layering principles, OSI vs. TCP/IP, Topologies, Optical Fiber (Step-index/Graded-index), Physical encoding (NRZ, Manchester, Differential Manchester).
-- **Module 2:** Framing (Byte stuffing, HDLC bit stuffing), Error Detection (CRC polynomial division, 2D Parity, Checksum), Sliding Window (Stop-and-Wait, GBN, Selective Repeat), CSMA/CD, CSMA/CA, IEEE 802.11 frame format.
-- **Module 3:** Datagram vs. Virtual Circuit Subnets, Routing Algorithms (Dijkstra SPF, Distance Vector Bellman-Ford, Count-to-Infinity solutions), Multicast (RPF, IGMP), Congestion Control (Leaky/Token Bucket, Choke packets, Load shedding), QoS Scheduling (FIFO, Priority, WFQ).
-- **Module 4:** Subnetting (CIDR, VLSM numericals), IPv4 vs. IPv6 base header, Address Resolution (ARP, RARP, DHCP DORA), Inter-AS Routing (OSPF hierarchical areas, BGP path vector).
-- **Module 5:** Transport primitives, UDP segment, TCP 3-Way Handshake, TCP AIMD (Slow Start, Reno fast retransmit/recovery), Application Protocols (DNS iterative/recursive, SMTP/POP3/IMAP, FTP Port 20/21, SNMP MIB).
-- **PCCSL507 Networks Lab:** Experiment 14 (OSPF Routing) and Experiment 13 (RIPv2 Routing) on Cisco 2811 routers.
+The calculator reports the address class from the first octet and measures "bits borrowed" against that class's default mask (A /8, B /16, C /24). A prefix shorter than the default is shown as a supernet; Class D and E addresses have no default mask, so the field reads "not applicable". The maths lives in `js/lib/subnet.js` and is covered by unit tests.
 
-### 3. Interactive Concept Laboratory
-- **CRC Generator & Verifier:** Step-by-step Modulo-2 binary polynomial division showing quotients, intermediate remainders, and frame validation (solves CST303 Dec 2023 Q14b: $10011101$ with $x^3 + 1 \implies$ FCS $100$, Codeword $10011101100$).
-- **Sliding Window Protocol Simulator:** Live visual execution of Go-Back-N ($W_s = 4, W_r = 1$), Selective Repeat ($W_s = W_r = 4$), and Stop-and-Wait ($W=1$), with simulated frame drops and timeout rewind logs.
-- **IPv4 Subnetting & CIDR Calculator:** Instant calculation of custom subnet masks, network IDs, directed broadcasts, and usable host counts ($2^h - 2$).
-- **Dijkstra Shortest Path Router:** Computes optimal forwarding tables and path costs for a 6-node network graph.
+## Data
 
-### 4. 3D WebGL Visualization Gallery (Three.js)
-- **Optical Fiber Total Internal Reflection:** Real-time 3D ray refraction and reflection with core/cladding refractive index controls ($n_1 > n_2$) and critical angle verification.
-- **3D Network Topologies:** Orbitable 3D scenes of Star, Mesh, Ring, and Bus topologies with packet pulse animations.
-- **OSI 7-Layer Encapsulation:** Vertical physical 3D stack demonstrating packet header encapsulation (Data ➔ Segment ➔ Packet ➔ Frame ➔ Bits).
-- **OSPF Hierarchical Area 0:** Multi-area autonomous system visualizing Backbone Area 0, Area 1, ABRs, and ASBRs with Link-State Advertisements (LSAs).
-- **Datagram vs. Virtual Circuit:** Visualizing independent packet forwarding vs. pre-established connection paths.
+- **Syllabus, solutions and research data**: hand-written data files in `js/data/` (`syllabusData.js`, `examSolutionsData.js`, `industryResearchData.js`, `careerData.js`).
+- **Past-paper coverage is partial**: 16 of the 30 sub-questions on the December 2022 paper and 5 of 30 on the December 2023 paper have worked solutions. The app says "selected questions" and shows the count per paper.
+- **Salary ranges** are indicative. Each card names its sources (AmbitionBox, Glassdoor, Payscale and others), but the figures are not linked to the underlying reports and have not been independently verified.
+- **NetPulse telemetry** (latency, drops) is simulated.
+- **Reference PDFs** in `docs/reference_materials/` are third-party documents. See `THIRD_PARTY_NOTICES.md`.
+- **Privacy**: no accounts, no analytics, no network calls other than loading the libraries and fonts below. The only stored data is the theme and the mastery checklist, in the visitor's own browser.
 
-### 5. Motion Graphics Engine (HTML5 Canvas & 60fps Animation)
-- **Token Bucket Traffic Shaping:** Visualizes constant token arrival rate $\rho$ regulating bursty incoming traffic into smooth transmission streams.
-- **TCP AIMD Congestion Control:** Real-time dynamic graph of `cwnd` vs. RTT illustrating exponential Slow Start, linear Congestion Avoidance, and Fast Recovery.
-- **ARP Resolution Flow:** Broadcast request (`FF:FF:FF:FF:FF:FF`) and unicast reply sequence.
-- **DNS Recursive Resolution:** Hierarchical query resolution across Client, Local Resolver, Root DNS, TLD, and Authoritative servers.
+## Results
 
-### 6. Official Question-Paper Solver
-- **December 2022 (`B1 CST303`):** Complete solutions for Part A (Q1–Q10) and Part B (Q11–Q20) mapped to official evaluation scheme `B2 CST303 CN QP SCHEME1-Dec 2022.pdf`.
-- **December 2023 (`CST303-QP`):** Complete solutions for Part A and Part B mapped to `CST303-DRAFT SCHEME1.pdf`.
-- **Features:** Concise revision toggle vs. detailed model answers, marking rubrics, ASCII diagrams, printable examination view (`Ctrl+P`), and student mastery checklist persisted in `localStorage`.
+| Check | Value | Status | How measured | Date |
+|---|---|---|---|---|
+| Unit tests (`node --test`) | 21 of 21 pass | Verified (re-run 2026-10-13) | `node --test`, Node v22.20.0 | 2026-10-13 |
+| Horizontal overflow, 15 views at 390 px | 0 px on all views | Verified (re-run 2026-10-13) | Playwright, `scrollWidth - clientWidth` | 2026-10-13 |
+| Horizontal overflow, 15 views at 1280 px | 0 px on all views | Verified (re-run 2026-10-13) | Playwright, same method | 2026-10-13 |
+| Console errors on load and navigation | 0 (only a missing `favicon.ico`) | Verified (re-run 2026-10-13) | Playwright console listener | 2026-10-13 |
 
-### 7. Educational Games (Games A through G)
-- **Game A: Concept Matching:** Match protocols to their formal definitions and IEEE standards.
-- **Game B: Frame Builder:** Arrange IEEE 802.3 Ethernet frame fields in exact byte sequence.
-- **Game C: Routing Algorithm Challenge:** Predict next-hop and cost in Distance Vector Bellman-Ford tables.
-- **Game D: Knowledge Graph Connector:** Link protocol dependencies across OSI layers.
-- **Game E: Scenario Architect:** Select optimal physical media and topologies for industrial campus scenarios.
-- **Game F: Rapid Quiz:** 10-question timed challenge with streak multipliers and detailed explanations.
-- **Game G: Network Debugger:** Identify configuration bugs in Cisco IOS OSPF wildcard masks and CIDR subnets.
+Run log: `docs/runs/2026-10-13-tests-and-mobile-checks.md`.
 
-### 8. Interactive Knowledge Graph
-- Force-directed physics canvas connecting 20+ protocols, layers, and algorithms.
-- Node inspection panel displaying descriptions, prerequisites, and connected relationships.
+## Tech stack
 
-### 9. Industry Research & Advancements
-- **Production Systems:** Google B4 SDN WAN, Cloudflare BGP Anycast DDoS mitigation, Google YouTube QUIC (HTTP/3), and 5G End-to-End Network Slicing.
-- **Advancements:** Wi-Fi 7 (802.11be), Post-Quantum Cryptography in TLS 1.3 (NIST FIPS 203 ML-KEM), SRv6 Segment Routing, and eBPF Cilium kernel networking.
-- **Peer-Reviewed Papers:** Foundational papers by Cerf & Kahn (1974), Dijkstra (1959), and Bosshart et al. (P4, SIGCOMM 2014) with verified DOIs and research gaps.
+- HTML5, CSS3 (custom glass-style design system), vanilla JavaScript ES modules
+- [Three.js](https://threejs.org/) r128 for 3D, HTML5 Canvas for 2D animation
+- [KaTeX](https://katex.org/) 0.16.11 for maths in worked solutions
+- Google Fonts: Exo 2 and Roboto Mono
+- Node's built-in test runner (`node --test`) for unit tests
+- Hosted on Vercel as a static site
 
-### 10. Industry Tools & Kerala/India Salary Market
-- **Tool Stacks:** Wireshark, Cisco Packet Tracer, Mininet, GNS3, Nmap, and Cilium eBPF.
-- **Job Profiles:** Network Engineer, Cloud Network Architect, Cybersecurity Analyst, and SRE / Automation Engineer.
-- **Salary Data:** Verified compensation ranges for India (Infopark Kochi, Technopark Trivandrum, Bengaluru) and global comparisons.
+## Getting started
 
-### 11. Portfolio Project MVP: NetPulse SDN & Topology Analyzer
-- Working interactive topology canvas supporting node additions, live packet injections, and link breaking.
-- Real-time performance telemetry: Sent, Delivered, Dropped, and round-trip latency.
-- Auto-generated Cisco IOS configuration scripts compatible with Cisco Packet Tracer (PCCSL507 Lab 14).
-- Complete recruiter talking points and GitHub repository blueprint.
+Prerequisites:
 
----
+- A modern browser with WebGL (Chrome, Edge, Firefox or Safari)
+- Python 3 or Node.js 20 or later, to serve the files (ES modules do not load from `file://`)
+- An internet connection, because Three.js, KaTeX and the fonts load from a CDN
 
-## 🛠️ Technology Stack
-
-- **Frontend Core:** HTML5, Modern Vanilla CSS3 (Custom Liquid Glassmorphism Design System)
-- **3D Graphics:** Three.js (r128 WebGL Renderer with custom Orbit interaction)
-- **2D Canvas Engines:** HTML5 2D Canvas with requestAnimationFrame loops
-- **Typography:** Google Fonts (Exo 2 for headings, Roboto Mono for technical data)
-- **State Persistence:** LocalStorage for dark/light theme and exam question checklists
-- **Deployment:** Vercel Edge Network, Zero-build static architecture
-
----
-
-## 💻 Setup & Local Development Instructions
-
-NetVerse 3D is designed to run in any modern web browser without requiring complex build chains.
-
-### 1. Prerequisites
-- A modern browser supporting WebGL (Google Chrome, Microsoft Edge, Firefox, or Safari).
-- Python 3 or Node.js to serve files locally (enables ES module imports).
-
-### 2. Running Locally
-
-**Using Python:**
 ```bash
-# Navigate to the workspace directory
-cd c:\Users\Asus\Downloads\ds
+git clone https://github.com/Janeferdinant/cst303-computer-networks-dashboard.git
+cd cst303-computer-networks-dashboard
 
-# Start a local HTTP server
-py -m http.server 8090
-```
-
-**Using Node.js:**
-```bash
+# serve the site (either one)
+python -m http.server 8090
+# or
 npx serve -l 8090 .
 ```
 
-Open your browser and navigate to:
+Open http://localhost:8090. Expected: the Overview page loads with the "Interactive 3D Learning Platform" badge, and the browser console shows no errors.
+
+Run the tests (no install step, there are no dependencies):
+
+```bash
+node --test
 ```
-http://localhost:8090
+
+Expected: `# tests 21`, `# pass 21`, `# fail 0`.
+
+## Project structure
+
+```
+cst303-computer-networks-dashboard/
+├── index.html                  # single-page entry point
+├── css/style.css               # design system and responsive rules
+├── js/
+│   ├── app.js                  # view router, theme, mobile menu
+│   ├── lib/
+│   │   ├── subnet.js           # subnetting maths (unit-tested)
+│   │   └── richText.js         # Markdown + TeX renderer (unit-tested)
+│   ├── data/                   # syllabus, worked solutions, research, careers
+│   └── modules/                # one module per feature
+├── tests/                      # node --test unit tests
+├── docs/
+│   ├── reference_materials/    # third-party PDFs (see THIRD_PARTY_NOTICES.md)
+│   ├── runs/                   # dated run logs
+│   ├── screenshots/
+│   └── superpowers/plans/      # original implementation plan
+├── package.json                # test script only, no dependencies
+├── LICENSE
+└── THIRD_PARTY_NOTICES.md
 ```
 
----
+## Real-world applications
 
-## 📄 Mandatory Academic Attribution & Footer
+- A revision aid and classroom demonstrator for CST303 and similar networking courses.
+- The NetPulse view shows how a topology simulator and generated router configuration can support a Packet Tracer or GNS3 lab.
 
-**Jane Rose | Assistant Professor, Department of Computer Science and Engineering**  
-*APJ Abdul Kalam Technological University (KTU) • CST303 Computer Networks*
+## Limitations
+
+- Worked solutions cover selected questions only (16 of 30 and 5 of 30), not full papers.
+- Salary figures are indicative and unverified; NetPulse telemetry is simulated.
+- The subnet tool accepts prefixes /1 to /30 and uses classful defaults only to report bits borrowed.
+- Libraries load from a CDN, so the app needs a connection.
+- No automated browser tests are committed; the layout checks in the run log were run by hand with Playwright.
+- The 3D gallery needs WebGL.
+
+## Future scope
+
+- Worked solutions for the remaining past-paper questions.
+- Source links and dates for the salary ranges.
+- Committed Playwright smoke tests.
+- Bundling the libraries locally so the app works offline.
+
+## Credits & citation
+
+- Course: KTU CST303 Computer Networks (2019 scheme) and PCCSL507 Networks Laboratory. Past papers and valuation schemes are KTU documents.
+- Libraries: Three.js (MIT), KaTeX (MIT), Google Fonts.
+- Parts of this code and its copy were written with AI coding assistance.
+- Third-party material and its status: `THIRD_PARTY_NOTICES.md`.
+
+## License
+
+Original work © Jane Rose Ferdinant, licensed CC BY-NC-SA 4.0. Third-party components retain their own licenses; see THIRD_PARTY_NOTICES.md.
+
+## Author
+
+Jane Rose Ferdinant, Assistant Professor, Department of Computer Science and Engineering.
+
+- Portfolio: https://janeferdinant.vercel.app
+- LinkedIn: https://www.linkedin.com/in/janerosenf/

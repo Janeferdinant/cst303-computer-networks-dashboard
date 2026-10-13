@@ -1,5 +1,6 @@
 // INDUSTRY TECHNOLOGY STACKS, CAREERS & SALARY MARKET DATA
-// Verified India & Kerala IT Corridors (Infopark Kochi, Technopark Trivandrum) + Global Ranges
+// Indicative ranges for India & Kerala IT corridors (Infopark Kochi, Technopark Trivandrum) + global ranges.
+// Not independently verified: the sources below are named but not linked to the underlying reports.
 
 export const industryToolsData = [
   {

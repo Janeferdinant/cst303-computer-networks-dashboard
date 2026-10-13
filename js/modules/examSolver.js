@@ -1,7 +1,8 @@
-// QUESTION-PAPER SOLVER WITH OFFICIAL EVALUATION SCHEMES
-// Comprehensive Model Answers for KTU CST303 December 2022 & December 2023
+// QUESTION-PAPER SOLVER
+// Worked solutions to selected questions from KTU CST303 December 2022 & December 2023
 
 import { examSolutionsData } from '../data/examSolutionsData.js';
+import { renderRichText, renderInline } from '../lib/richText.js';
 
 export class ExamSolver {
   constructor(containerId) {
@@ -22,9 +23,9 @@ export class ExamSolver {
     this.container.innerHTML = `
       <div class="section-header">
         <div>
-          <span class="iridescent-badge">Official University Solutions</span>
+          <span class="iridescent-badge">Worked Solutions</span>
           <h2 class="section-title">Question-Paper Solver</h2>
-          <p class="section-desc">Rigorous, examination-ready solutions mapped directly to APJ Abdul Kalam Technological University (KTU) official valuation schemes.</p>
+          <p class="section-desc">Worked solutions to selected questions from APJ Abdul Kalam Technological University (KTU) CST303 past papers, with marking notes that follow the KTU valuation schemes.</p>
         </div>
         <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
           <select id="exam-paper-select" class="btn btn-glass font-mono" style="padding:0.6rem 1rem;">
@@ -55,7 +56,10 @@ export class ExamSolver {
           </div>
         </div>
         <div style="margin-top:0.85rem; font-size:0.78rem; color:var(--text-dim);">
-          <strong>Source of Key:</strong> ${paper.schemeSource}
+          <strong>Marking reference:</strong> ${paper.schemeSource}
+        </div>
+        <div style="margin-top:0.35rem; font-size:0.78rem; color:var(--text-dim);" id="exam-coverage-note">
+          <strong>Coverage:</strong> worked solutions to selected questions (${paper.sections.reduce((n, s) => n + s.questions.length, 0)} on this paper), not the full paper.
         </div>
       </div>
 
@@ -114,23 +118,23 @@ export class ExamSolver {
                   </div>
 
                   <h4 style="font-size:1.1rem; font-weight:600; color:var(--text-main); line-height:1.5; margin-bottom:0.75rem;">
-                    ${q.questionText}
+                    ${renderInline(q.questionText)}
                   </h4>
 
                   <div style="display:flex; gap:1rem; font-size:0.78rem; color:var(--text-dim); margin-bottom:1rem; flex-wrap:wrap;">
-                    <span><strong>Syllabus Reference:</strong> ${q.syllabusRef}</span>
-                    <span><strong>Evaluation Scheme Rubric:</strong> <span style="color:var(--accent-amber);">${q.schemeRubric}</span></span>
+                    <span><strong>Syllabus Reference:</strong> ${renderInline(q.syllabusRef)}</span>
+                    <span><strong>Marking Notes:</strong> <span style="color:var(--accent-amber);">${renderInline(q.schemeRubric)}</span></span>
                   </div>
 
                   <!-- Model Answer Area -->
                   <div class="solution-box">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
                       <span style="font-weight:700; font-size:0.85rem; color:var(--accent-emerald);">
-                        ${this.viewMode === 'detailed' ? 'VERIFIED MODEL ANSWER & WORKING' : 'CONCISE REVISION SUMMARY'}
+                        ${this.viewMode === 'detailed' ? 'MODEL ANSWER & WORKING' : 'CONCISE REVISION SUMMARY'}
                       </span>
                     </div>
                     <div style="font-size:0.9rem; line-height:1.7; color:var(--text-main);">
-                      ${this.viewMode === 'detailed' ? this.formatMarkdown(q.detailedAnswer) : `<p>${q.conciseAnswer}</p>`}
+                      ${this.viewMode === 'detailed' ? renderRichText(q.detailedAnswer) : `<p>${renderInline(q.conciseAnswer)}</p>`}
                     </div>
                   </div>
                 </div>
@@ -142,18 +146,6 @@ export class ExamSolver {
     });
 
     return html;
-  }
-
-  formatMarkdown(text) {
-    if (!text) return '';
-    // Format headers, bold text, code blocks, lists
-    let formatted = text
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/```([\s\S]*?)```/g, '<pre class="font-mono" style="background:rgba(0,0,0,0.4); padding:0.8rem; border-radius:6px; overflow-x:auto; margin:0.8rem 0; font-size:0.82rem; line-height:1.4;"><code>$1</code></pre>')
-      .replace(/`([^`]+)`/g, '<code class="font-mono" style="background:rgba(255,255,255,0.08); padding:0.15rem 0.4rem; border-radius:4px; font-size:0.85rem; color:var(--accent-cyan);">$1</code>')
-      .replace(/\n\n/g, '<br><br>');
-    return formatted;
   }
 
   attachEvents() {

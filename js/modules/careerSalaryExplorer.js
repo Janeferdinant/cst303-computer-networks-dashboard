@@ -1,5 +1,5 @@
 // INDUSTRY TOOLS, CAREER ROLES & SALARY EXPLORER
-// Accurate market compensation for India (Kerala IT Hubs) & Global tech ecosystems
+// Indicative compensation ranges for India (Kerala IT hubs) and global markets (not independently verified)
 
 import { industryToolsData, careerRolesData } from '../data/careerData.js';
 
@@ -17,7 +17,7 @@ export class CareerSalaryExplorer {
         <div>
           <span class="iridescent-badge">Industry Alignment & Careers</span>
           <h2 class="section-title">Industry Tools & Salary Market Explorer</h2>
-          <p class="section-desc">Practical guide to the software tools used by network architects, job roles, required skill sets, and realistic compensation ranges in Kerala & global markets.</p>
+          <p class="section-desc">Practical guide to the software tools used by network architects, job roles, required skill sets, and indicative compensation ranges in Kerala & global markets.</p>
         </div>
       </div>
 
@@ -26,6 +26,7 @@ export class CareerSalaryExplorer {
         1. Industry Technology Stack & Tools
       </h3>
       <div class="glass-card" style="padding:0; overflow:hidden; margin-bottom:2.5rem;">
+        <div class="table-scroll">
         <table class="custom-table">
           <thead>
             <tr>
@@ -57,12 +58,16 @@ export class CareerSalaryExplorer {
             `).join('')}
           </tbody>
         </table>
+        </div>
       </div>
 
       <!-- Section 2: Career Roles & Salary Insights -->
-      <h3 style="font-size:1.35rem; font-weight:700; margin-bottom:1.25rem; color:var(--text-main);">
-        2. Career Roles & Verified Salary Ranges (Kerala & India Focus)
+      <h3 style="font-size:1.35rem; font-weight:700; margin-bottom:0.6rem; color:var(--text-main);">
+        2. Career Roles & Indicative Salary Ranges (Kerala & India Focus)
       </h3>
+      <p id="salary-disclaimer" style="font-size:0.82rem; color:var(--text-dim); margin-bottom:1.25rem; max-width:820px;">
+        These ranges are indicative only. Each card names the public salary sources it draws on, but the figures are not linked to the underlying reports and have not been independently verified. Check current figures on those sites before relying on them.
+      </p>
       <div style="display:flex; flex-direction:column; gap:1.75rem;">
         ${careerRolesData.map(role => `
           <div class="glass-card">
@@ -99,7 +104,7 @@ export class CareerSalaryExplorer {
             </div>
 
             <!-- Skills & Employers -->
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; font-size:0.85rem; margin-top:1rem;">
+            <div class="split-two" style="gap:1.25rem; font-size:0.85rem; margin-top:1rem;">
               <div>
                 <strong style="color:var(--accent-cyan); display:block; margin-bottom:0.4rem;">Mandatory Core Technical Skills:</strong>
                 <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
@@ -116,7 +121,7 @@ export class CareerSalaryExplorer {
                   ${role.topEmployersInKerala.map(emp => `<li>✔ ${emp}</li>`).join('')}
                 </ul>
                 <div style="margin-top:0.8rem; font-size:0.75rem; color:var(--text-dim);">
-                  <strong>Data Source:</strong> ${role.salaryData.sources}
+                  <strong>Sources named (not independently verified):</strong> ${role.salaryData.sources}
                 </div>
               </div>
             </div>

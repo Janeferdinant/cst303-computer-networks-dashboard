@@ -1,6 +1,8 @@
 // INTERACTIVE CONCEPT LABORATORY
 // Algorithmic Calculators & Step-by-Step Simulators
 
+import { calculateSubnet, isValidIPv4, MIN_PREFIX, MAX_PREFIX } from '../lib/subnet.js';
+
 export class ConceptLab {
   constructor() {
     this.init();
@@ -292,7 +294,7 @@ export class ConceptLab {
       <div style="display:flex; gap:1.5rem; font-size:0.85rem; color:var(--text-muted);">
         <div><strong>Base (Oldest Unacked):</strong> <span class="font-mono" style="color:var(--accent-cyan); font-weight:700;">${base}</span></div>
         <div><strong>NextSeqNum:</strong> <span class="font-mono" style="color:var(--accent-purple); font-weight:700;">${nextSeqNum}</span></div>
-        <div><strong>Window Size ($W_s$):</strong> <span class="font-mono">${windowSize}</span></div>
+        <div><strong>Window Size (W<sub>s</sub>):</strong> <span class="font-mono">${windowSize}</span></div>
       </div>
     `;
 
@@ -308,21 +310,27 @@ export class ConceptLab {
 
     calcBtn.addEventListener('click', () => {
       const ip = document.getElementById('subnet-ip-input').value.trim();
-      const cidrVal = parseInt(document.getElementById('subnet-cidr-input').value.trim(), 10);
+      const cidrRaw = document.getElementById('subnet-cidr-input').value.trim();
+      const cidrVal = cidrRaw === '' ? NaN : Number(cidrRaw);
       const out = document.getElementById('subnet-result-output');
 
-      if (!this.isValidIPv4(ip) || isNaN(cidrVal) || cidrVal < 1 || cidrVal > 30) {
+      if (!isValidIPv4(ip) || !Number.isInteger(cidrVal) || cidrVal < MIN_PREFIX || cidrVal > MAX_PREFIX) {
         out.innerHTML = `<span style="color:var(--accent-rose);">Please enter a valid IPv4 address (e.g. 181.56.0.0) and CIDR prefix (1 to 30).</span>`;
         return;
       }
 
-      const ipNum = this.ipToNumber(ip);
-      const maskNum = (0xFFFFFFFF << (32 - cidrVal)) >>> 0;
-      const netNum = (ipNum & maskNum) >>> 0;
-      const bcastNum = (netNum | (~maskNum >>> 0)) >>> 0;
-      const hostBits = 32 - cidrVal;
-      const totalHosts = Math.pow(2, hostBits);
-      const usableHosts = totalHosts - 2;
+      const s = calculateSubnet(ip, cidrVal);
+      const classLabel = s.classfulPrefix === null
+        ? `Class ${s.addressClass}`
+        : `Class ${s.addressClass}, default /${s.classfulPrefix}`;
+      let borrowedText;
+      if (s.classfulPrefix === null) {
+        borrowedText = `Not applicable (Class ${s.addressClass} ${s.addressClass === 'D' ? 'is multicast' : 'is reserved'} and has no default mask)`;
+      } else if (s.supernetBits > 0) {
+        borrowedText = `0 bits: /${cidrVal} is a supernet of ${(2 ** s.supernetBits).toLocaleString()} Class ${s.addressClass} networks`;
+      } else {
+        borrowedText = `${s.borrowedBits} bits (${s.subnetCount.toLocaleString()} subnet${s.subnetCount === 1 ? '' : 's'})`;
+      }
 
       out.innerHTML = `
         <div class="glass-panel" style="padding:1.4rem; margin-top:1rem;">
@@ -330,54 +338,32 @@ export class ConceptLab {
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
             <div>
               <p style="font-size:0.8rem; color:var(--text-muted);">Subnet Mask:</p>
-              <p class="font-mono" style="font-weight:700;">${this.numberToIp(maskNum)}</p>
+              <p class="font-mono" style="font-weight:700;">${s.mask}</p>
             </div>
             <div>
               <p style="font-size:0.8rem; color:var(--text-muted);">Network Address:</p>
-              <p class="font-mono" style="color:var(--accent-cyan); font-weight:700;">${this.numberToIp(netNum)}</p>
+              <p class="font-mono" style="color:var(--accent-cyan); font-weight:700;">${s.network}</p>
             </div>
             <div>
               <p style="font-size:0.8rem; color:var(--text-muted);">Broadcast Address:</p>
-              <p class="font-mono" style="color:var(--accent-amber); font-weight:700;">${this.numberToIp(bcastNum)}</p>
+              <p class="font-mono" style="color:var(--accent-amber); font-weight:700;">${s.broadcast}</p>
             </div>
             <div>
               <p style="font-size:0.8rem; color:var(--text-muted);">Usable Host Range:</p>
-              <p class="font-mono" style="color:var(--accent-emerald); font-weight:700;">${this.numberToIp(netNum + 1)} - ${this.numberToIp(bcastNum - 1)}</p>
+              <p class="font-mono" style="color:var(--accent-emerald); font-weight:700;">${s.firstHost} - ${s.lastHost}</p>
             </div>
             <div>
-              <p style="font-size:0.8rem; color:var(--text-muted);">Usable Hosts ($2^h - 2$):</p>
-              <p class="font-mono" style="font-size:1.1rem; font-weight:800; color:var(--accent-purple);">${usableHosts.toLocaleString()}</p>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Usable Hosts (2<sup>h</sup> &minus; 2, h = ${s.hostBits}):</p>
+              <p class="font-mono" style="font-size:1.1rem; font-weight:800; color:var(--accent-purple);">${s.usableHosts.toLocaleString()}</p>
             </div>
             <div>
-              <p style="font-size:0.8rem; color:var(--text-muted);">Subnet Bits Borrowed (from Class B):</p>
-              <p class="font-mono">${cidrVal >= 16 ? cidrVal - 16 : 0} bits (${Math.pow(2, Math.max(0, cidrVal - 16))} subnets)</p>
+              <p style="font-size:0.8rem; color:var(--text-muted);">Subnet Bits Borrowed (${classLabel}):</p>
+              <p class="font-mono" id="subnet-borrowed-output">${borrowedText}</p>
             </div>
           </div>
         </div>
       `;
     });
-  }
-
-  isValidIPv4(ip) {
-    const parts = ip.split('.');
-    if (parts.length !== 4) return false;
-    return parts.every(p => {
-      const n = parseInt(p, 10);
-      return !isNaN(n) && n >= 0 && n <= 255 && p === n.toString();
-    });
-  }
-
-  ipToNumber(ip) {
-    return ip.split('.').reduce((acc, oct) => ((acc << 8) + parseInt(oct, 10)) >>> 0, 0);
-  }
-
-  numberToIp(num) {
-    return [
-      (num >>> 24) & 0xFF,
-      (num >>> 16) & 0xFF,
-      (num >>> 8) & 0xFF,
-      num & 0xFF
-    ].join('.');
   }
 
   /* -------------------------------------------------------------

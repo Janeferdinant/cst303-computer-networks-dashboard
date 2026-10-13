@@ -2,6 +2,7 @@
 // Verified Peer-Reviewed Papers, Industry Standards, and Case Studies
 
 import { realWorldAppsData, techAdvancementsData, researchPapersData } from '../data/industryResearchData.js';
+import { renderInline } from '../lib/richText.js';
 
 export class IndustryResearchExplorer {
   constructor(containerId) {
@@ -25,7 +26,7 @@ export class IndustryResearchExplorer {
       <h3 style="font-size:1.35rem; font-weight:700; margin-bottom:1.25rem; color:var(--text-main);">
         1. Hyperscale Production Applications
       </h3>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
         ${realWorldAppsData.map(app => `
           <div class="glass-card">
             <span class="iridescent-badge" style="margin-bottom:0.6rem;">${app.industry}</span>
@@ -57,7 +58,7 @@ export class IndustryResearchExplorer {
       <h3 style="font-size:1.35rem; font-weight:700; margin-bottom:1.25rem; color:var(--text-main);">
         2. Latest Technology Advancements & Standards
       </h3>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
         ${techAdvancementsData.map(tech => `
           <div class="glass-card">
             <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.78rem;">
@@ -68,7 +69,7 @@ export class IndustryResearchExplorer {
               <strong>Core Innovation:</strong> ${tech.keyInnovation}
             </p>
             <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:0.6rem;">
-              <strong>Compared to Legacy:</strong> ${tech.comparisonToEarlier}
+              <strong>Compared to Legacy:</strong> ${renderInline(tech.comparisonToEarlier)}
             </p>
             <p style="font-size:0.8rem; color:var(--text-dim); margin-bottom:1rem;">
               <strong>Use Cases:</strong> ${tech.useCases}
@@ -110,7 +111,7 @@ export class IndustryResearchExplorer {
               </div>
               <div style="padding:0.8rem; background:rgba(0,0,0,0.2); border-radius:6px;">
                 <strong style="color:var(--accent-emerald); display:block; margin-bottom:0.25rem;">Key Findings:</strong>
-                <p style="color:var(--text-muted);">${p.mainFindings}</p>
+                <p style="color:var(--text-muted);">${renderInline(p.mainFindings)}</p>
               </div>
             </div>
 

@@ -126,9 +126,11 @@ export class ThreeVisualizer {
     if (!this.container || !this.renderer || !this.camera) return;
     const width = this.container.clientWidth;
     const height = this.container.clientHeight;
+    if (!width || !height) return; // section hidden: keep the last good size
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
+    // false: keep the CSS 100% sizing so the canvas never forces its card wider
+    this.renderer.setSize(width, height, false);
   }
 
   clearScene() {

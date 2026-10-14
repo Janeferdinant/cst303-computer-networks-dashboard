@@ -1,8 +1,9 @@
 // QUESTION-PAPER SOLVER
-// Worked solutions to selected questions from KTU CST303 December 2022 & December 2023
+// Worked solutions to every question of the KTU CST303 December 2022 and December 2023 papers
 
 import { examSolutionsData } from '../data/examSolutionsData.js';
 import { renderRichText, renderInline } from '../lib/richText.js';
+import { coverageText } from '../lib/coverage.js';
 
 export class ExamSolver {
   constructor(containerId) {
@@ -25,7 +26,7 @@ export class ExamSolver {
         <div>
           <span class="iridescent-badge">Worked Solutions</span>
           <h2 class="section-title">Question-Paper Solver</h2>
-          <p class="section-desc">Worked solutions to selected questions from APJ Abdul Kalam Technological University (KTU) CST303 past papers, with marking notes that follow the KTU valuation schemes.</p>
+          <p class="section-desc">Worked solutions to the APJ Abdul Kalam Technological University (KTU) CST303 December 2022 and December 2023 papers, with marking notes that follow the KTU valuation schemes.</p>
         </div>
         <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
           <select id="exam-paper-select" class="btn btn-glass font-mono" style="padding:0.6rem 1rem;">
@@ -59,7 +60,7 @@ export class ExamSolver {
           <strong>Marking reference:</strong> ${paper.schemeSource}
         </div>
         <div style="margin-top:0.35rem; font-size:0.78rem; color:var(--text-dim);" id="exam-coverage-note">
-          <strong>Coverage:</strong> worked solutions to selected questions (${paper.sections.reduce((n, s) => n + s.questions.length, 0)} on this paper), not the full paper.
+          <strong>Coverage:</strong> ${coverageText(paper)}
         </div>
       </div>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CST303 Computer Networks — Interactive 3D Learning Dashboard</title>
-  <meta name="description" content="Interactive 3D learning dashboard for KTU CST303 Computer Networks: protocol simulators, 3D visualisations, games and worked solutions to selected past-paper questions, by Jane Rose Ferdinant.">
+  <meta name="description" content="Interactive 3D learning dashboard for KTU CST303 Computer Networks: protocol simulators, 3D visualisations, games and worked solutions to the December 2022 and December 2023 past papers, by Jane Rose Ferdinant.">
   <link rel="stylesheet" href="css/style.css">
   <!-- KaTeX (pinned) renders the TeX in worked solutions -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css" integrity="sha512-aOFyMMzZF7l7ei3vOKgQiRhZnYqk9YC/uMzl4T0j5N5D3Kul+QAFU8ssENDRMAqr/lxDOjMF69dSYJ8HYqY+WQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -174,8 +174,8 @@
                 <div class="stat-lbl">Theory Modules<br>(CST303)</div>
               </div>
               <div class="stat-item">
-                <div class="stat-num">2</div>
-                <div class="stat-lbl">Past Papers<br>(selected questions)</div>
+                <div class="stat-num" id="stat-solved-questions">60</div>
+                <div class="stat-lbl">Past-Paper Questions<br>Solved (Dec 2022 &amp; 2023)</div>
               </div>
               <div class="stat-item">
                 <div class="stat-num">7</div>
@@ -210,7 +210,7 @@
             <div style="font-size:1.8rem; margin-bottom:0.6rem;">📝</div>
             <h4 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.4rem;">Question-Paper Solver</h4>
             <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
-              Worked solutions to selected questions from the KTU December 2022 and 2023 papers, with step-by-step numerical working and printable answer sheets.
+              <span id="exam-card-desc">Worked solutions to every question of the KTU December 2022 and December 2023 papers</span>, with step-by-step numerical working and printable answer sheets.
             </p>
           </div>
         </div>

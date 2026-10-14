@@ -1,5 +1,6 @@
 // APJ ABDUL KALAM TECHNOLOGICAL UNIVERSITY (KTU)
-// CST303 COMPUTER NETWORKS - OFFICIAL MODEL EXAM SOLUTIONS & VALUATION SCHEMES
+// CST303 COMPUTER NETWORKS - WORKED SOLUTIONS TO SELECTED PAST-PAPER QUESTIONS
+// Coverage is partial: only the questions listed below have solutions.
 // Author: Jane Rose | Assistant Professor, Department of Computer Science and Engineering
 
 export const examSolutionsData = [
@@ -10,7 +11,7 @@ export const examSolutionsData = [
     subject: "CST 303 COMPUTER NETWORKS",
     totalMarks: 100,
     duration: "3 Hours",
-    schemeSource: "Official University Evaluation Scheme B2 CST303 CN QP SCHEME1-Dec 2022.pdf",
+    schemeSource: "KTU valuation scheme (file: B2 CST303 CN QP SCHEME1-Dec 2022.pdf)",
     sections: [
       {
         sectionName: "PART A (Answer all questions - 3 Marks each)",
@@ -444,7 +445,7 @@ cwnd (MSS)
     subject: "CST 303 COMPUTER NETWORKS",
     totalMarks: 100,
     duration: "3 Hours",
-    schemeSource: "Official University Evaluation Scheme CST303-DRAFT SCHEME1.pdf",
+    schemeSource: "KTU draft valuation scheme (file: CST303-DRAFT SCHEME1.pdf)",
     sections: [
       {
         sectionName: "PART A (Answer all questions - 3 Marks each)",
@@ -528,9 +529,14 @@ In Even Parity, the parity bit is chosen so that the total number of 1s in the c
    - To make total count even, append 1.
    - **Parity Bit = 1**
    - Resulting frame: \`100100011\` (Total 1s = 4).`
-          },
+          }
+        ]
+      },
+      {
+        sectionName: "PART B (Module by Module Questions - 14 Marks each)",
+        questions: [
           {
-            qNo: 14,
+            qNo: "14b",
             module: 2,
             marks: 7,
             questionText: "b) A bit stream 10011101 is transmitted using the CRC method. The generator polynomial is x^3 + 1. Show the actual bit string transmitted.",

@@ -1,0 +1,13 @@
+{
+  "name": "cst303-computer-networks-dashboard",
+  "private": true,
+  "description": "NetVerse 3D: interactive learning dashboard for KTU CST303 Computer Networks (static site, no build step)",
+  "type": "module",
+  "license": "CC-BY-NC-ND-4.0",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

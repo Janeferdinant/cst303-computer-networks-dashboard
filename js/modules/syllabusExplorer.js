@@ -2,6 +2,7 @@
 // Interactive view for KTU CST303 Course Modules & Lab Experiments
 
 import { syllabusData } from '../data/syllabusData.js';
+import { renderInline } from '../lib/richText.js';
 
 export class SyllabusExplorer {
   constructor(containerId) {
@@ -57,7 +58,7 @@ export class SyllabusExplorer {
               ${mod.topics.map(t => `
                 <div style="padding:0.9rem; background:rgba(0,0,0,0.2); border-radius:6px; border:1px solid var(--glass-border);">
                   <strong style="color:var(--accent-cyan); font-size:0.9rem; display:block; margin-bottom:0.25rem;">${t.name}</strong>
-                  <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.4rem;">${t.details}</p>
+                  <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.4rem;">${renderInline(t.details)}</p>
                   <span class="font-mono" style="font-size:0.72rem; color:var(--text-dim); display:block;">Ref: ${t.textbookRef}</span>
                 </div>
               `).join('')}
@@ -68,7 +69,7 @@ export class SyllabusExplorer {
 
       <!-- Lab Experiments -->
       <h3 style="font-size:1.4rem; font-weight:700; margin-bottom:1.25rem;">PCCSL507 Networks Laboratory Practicals</h3>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:1.5rem;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap:1.5rem;">
         ${syllabusData.labExperiments.map(exp => `
           <div class="glass-card">
             <span class="exam-badge marks-badge" style="margin-bottom:0.5rem; display:inline-block;">Experiment ${exp.expNo}</span>

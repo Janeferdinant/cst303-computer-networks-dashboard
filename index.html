@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CST303 Computer Networks — 3D AI-Powered Learning Dashboard</title>
-  <meta name="description" content="Interactive 3D AI-powered learning dashboard, university question-paper solver, and portfolio laboratory for KTU CST303 Computer Networks by Jane Rose.">
+  <title>CST303 Computer Networks — Interactive 3D Learning Dashboard</title>
+  <meta name="description" content="Interactive 3D learning dashboard for KTU CST303 Computer Networks: protocol simulators, 3D visualisations, games and worked solutions to selected past-paper questions, by Jane Rose Ferdinant.">
   <link rel="stylesheet" href="css/style.css">
+  <!-- KaTeX (pinned) renders the TeX in worked solutions -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.css" integrity="sha512-aOFyMMzZF7l7ei3vOKgQiRhZnYqk9YC/uMzl4T0j5N5D3Kul+QAFU8ssENDRMAqr/lxDOjMF69dSYJ8HYqY+WQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js" integrity="sha512-UPFOadao2nEorjtjl0xUTtN3w20Ja143UPEU6EyJ1mi5MB2bDtMkiWmqGDqi47xNLB5z1dy31GKJDEWhjUJFiQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Three.js CDN for genuine 3D WebGL scenes -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 
@@ -154,7 +157,7 @@
       <section id="section-overview" class="view-section active">
         <div class="hero-banner">
           <div class="hero-content">
-            <span class="iridescent-badge">AI-Powered 3D Education Platform</span>
+            <span class="iridescent-badge">Interactive 3D Learning Platform</span>
             <h2 class="hero-title">Master Computer Networks with Interactive 3D & Rigorous Exam Mastery</h2>
             <p class="hero-description">
               Transform abstract networking theorems, CRC polynomial calculations, and sliding window flow control into tactile, interactive 3D WebGL simulations. Built exclusively for APJ Abdul Kalam Technological University (KTU) CST303 Computer Networks.
@@ -171,8 +174,8 @@
                 <div class="stat-lbl">Theory Modules<br>(CST303)</div>
               </div>
               <div class="stat-item">
-                <div class="stat-num">100%</div>
-                <div class="stat-lbl">Exam Coverage<br>(Dec 2022 & 2023)</div>
+                <div class="stat-num">2</div>
+                <div class="stat-lbl">Past Papers<br>(selected questions)</div>
               </div>
               <div class="stat-item">
                 <div class="stat-num">7</div>
@@ -207,7 +210,7 @@
             <div style="font-size:1.8rem; margin-bottom:0.6rem;">📝</div>
             <h4 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom:0.4rem;">Question-Paper Solver</h4>
             <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
-              Official KTU question solutions with marking schemes, step-by-step numerical substitutions, and printable answer sheets.
+              Worked solutions to selected questions from the KTU December 2022 and 2023 papers, with step-by-step numerical working and printable answer sheets.
             </p>
           </div>
         </div>
@@ -424,7 +427,7 @@
           </div>
         </div>
 
-        <div style="display:grid; grid-template-columns:3fr 1.2fr; gap:1.5rem;">
+        <div class="split-main-aside">
           <div class="glass-card" style="padding:1rem;">
             <canvas id="knowledge-graph-canvas"></canvas>
             <div style="margin-top:0.75rem; display:flex; justify-content:space-between; font-size:0.78rem; color:var(--text-dim);">
@@ -474,12 +477,12 @@
         </div>
 
         <div class="glass-card" style="margin-bottom:2rem;">
-          <div style="display:grid; grid-template-columns:3fr 1.2fr; gap:1.5rem;">
-            <div>
+          <div class="split-main-aside">
+            <div style="min-width:0;">
               <canvas id="portfolio-topology-canvas" style="width:100%; height:380px; border-radius:8px; background:radial-gradient(circle, rgba(15,23,42,0.95) 0%, rgba(8,12,22,1) 100%);"></canvas>
               
               <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; flex-wrap:wrap; gap:0.75rem;">
-                <div style="display:flex; gap:0.75rem;">
+                <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
                   <button class="btn btn-primary" id="portfolio-send-packet-btn">Transmit Packet (PC1 ➔ PC2)</button>
                   <button class="btn btn-outline" id="portfolio-break-primary-btn" style="color:var(--accent-rose); border-color:var(--accent-rose);">Sever Primary Link (R1-R2)</button>
                 </div>
@@ -505,7 +508,7 @@
                     <div style="font-size:1.1rem; font-weight:700; color:var(--accent-rose);" id="netpulse-stat-dropped">0</div>
                   </div>
                   <div>
-                    <span style="font-size:0.72rem; color:var(--text-dim);">Avg Latency:</span>
+                    <span style="font-size:0.72rem; color:var(--text-dim);">Latency (simulated):</span>
                     <div style="font-size:1.1rem; font-weight:700; color:var(--accent-amber);" id="netpulse-stat-latency">14 ms</div>
                   </div>
                 </div>
@@ -532,7 +535,7 @@
         <!-- Recruiter Talking Points & Architecture Blueprint -->
         <div class="glass-card">
           <h3 style="color:var(--accent-cyan); margin-bottom:1rem;">Portfolio Project Blueprint & Interview Talking Points</h3>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; font-size:0.88rem; line-height:1.6;">
+          <div class="split-two" style="font-size:0.88rem; line-height:1.6;">
             <div>
               <strong style="color:var(--accent-purple); display:block; margin-bottom:0.4rem;">Why this project stands out to recruiters:</strong>
               <p style="color:var(--text-muted); margin-bottom:0.8rem;">
@@ -540,9 +543,9 @@
               </p>
               <strong style="color:var(--accent-emerald); display:block; margin-bottom:0.4rem;">Key Interview Talking Points:</strong>
               <ul style="list-style:none; display:flex; flex-direction:column; gap:0.4rem; color:var(--text-muted);">
-                <li>✔ <em>"Demonstrates dynamic topology recalculation upon single-link failure in sub-10 milliseconds."</em></li>
-                <li>✔ <em>"Implements automated Cisco 2811 IOS router config generation, cutting human provisioning time by 90%."</em></li>
-                <li>✔ <em>"Provides live in-band telemetry tracking packet latency, drop count, and link utilization."</em></li>
+                <li>✔ <em>"Demonstrates path recalculation after a single-link failure in a simulated topology."</em></li>
+                <li>✔ <em>"Generates Cisco 2811 IOS router configuration scripts automatically for the lab topology."</em></li>
+                <li>✔ <em>"Shows simulated telemetry: packets sent, delivered and dropped, and per-packet latency."</em></li>
               </ul>
             </div>
             <div>

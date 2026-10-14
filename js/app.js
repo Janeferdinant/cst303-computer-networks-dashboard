@@ -12,6 +12,8 @@ import { KnowledgeGraphEngine } from './modules/knowledgeGraph.js';
 import { IndustryResearchExplorer } from './modules/industryResearchExplorer.js';
 import { CareerSalaryExplorer } from './modules/careerSalaryExplorer.js';
 import { PortfolioProjectLab } from './modules/portfolioProject.js';
+import { examSolutionsData } from './data/examSolutionsData.js';
+import { coverageSummary } from './lib/coverage.js';
 
 class NetVerseApp {
   constructor() {
@@ -180,6 +182,7 @@ class NetVerseApp {
 
     // 5. Exam Solver
     new ExamSolver('exam-solver-container');
+    this.renderCoverageCounters();
 
     // 6. Educational Games
     new EducationalGames();
@@ -198,6 +201,20 @@ class NetVerseApp {
 
     // 13. Portfolio Project Laboratory
     this.portfolioLab = new PortfolioProjectLab('portfolio-topology-canvas');
+  }
+
+  /** Past-paper counters on the Overview page come from the data, not from typed numbers. */
+  renderCoverageCounters() {
+    const summary = coverageSummary(examSolutionsData);
+    const stat = document.getElementById('stat-solved-questions');
+    if (stat) stat.textContent = String(summary.solved);
+    const desc = document.getElementById('exam-card-desc');
+    if (desc) {
+      const papers = summary.perPaper.map(p => p.label).join(' and ');
+      desc.textContent = summary.complete
+        ? `Worked solutions to every question of the KTU ${papers} papers`
+        : `Worked solutions to ${summary.solved} of the ${summary.total} questions on the KTU ${papers} papers`;
+    }
   }
 
   setupThreeSceneControls() {

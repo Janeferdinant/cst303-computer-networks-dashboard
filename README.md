@@ -164,7 +164,6 @@ cst303-computer-networks-dashboard/
 
 - Course: KTU CST303 Computer Networks (2019 scheme) and PCCSL507 Networks Laboratory. Past papers and valuation schemes are KTU documents.
 - Libraries: Three.js (MIT), KaTeX (MIT), Google Fonts.
-- Parts of this code and its copy were written with AI coding assistance.
 - Third-party material and its status: `THIRD_PARTY_NOTICES.md`.
 
 ## License

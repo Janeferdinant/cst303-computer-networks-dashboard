@@ -12,7 +12,7 @@
 - **Medium:** correct as far as I know, but it depends on a convention, an edition or detailed figures that vary by textbook. Please check against the book used in class.
 - **Low:** a guess at what the examiner expects, or content I could not confirm. None of the new solutions is rated low.
 
-**Counts of new or rewritten solutions:** high 37, medium 3, low 0 (total 40).
+**Counts of new or rewritten solutions:** high 36, medium 4, low 0 (total 40).
 
 ## December 2022 (paper code 1100CST303122106)
 
@@ -42,7 +42,7 @@
 | [ ] | 7 | 3 | Multicast routing and IGMP (Tanenbaum Ch 5.2.8 and 5.6.8, Forouzan Ch 21) | high | 4: class D range; multicast MAC for 224.1.2.3; multicast MAC for 239.129.0.1 (shares MAC with 224.1.0.1); 5 high-order bits of the group address are ignored: 2^5 groups per MAC |
 | [ ] | 8 | 3 | IPv4 Addressing & Subnetting (Forouzan Ch 19, Tanenbaum Ch 5.6) | high | 1: class A/B/C ranges and masks |
 | [ ] | 9 | 3 | Transport Layer Primitives & UDP (Tanenbaum Ch 6.1.2) | high | none (theory) |
-| [ ] | 10 | 3 | Domain Name System (Tanenbaum Ch 7.1.3, Forouzan Ch 26) | high | none (theory) |
+| [ ] | 10 | 3 | Domain Name System (Tanenbaum Ch 7.1.3, Forouzan Ch 26). Medium: textbooks differ on whether the root and TLD servers also recurse or only refer (the answer shows the Forouzan chain and notes the iterative variant) | medium | none (theory) |
 | [ ] | 11a | 4 | Layering Principles & Reference Models (Tanenbaum Ch 1.4, Forouzan Ch 2) | high | none (theory) |
 | [ ] | 11b | 10 | Network Classification & Topologies (Tanenbaum Ch 1.2, Forouzan Ch 1.2) | high | 2: links in a 5-node full mesh; I/O ports per device in a 5-node mesh |
 | [ ] | 12a | 8 | Network Classification & Topologies (Tanenbaum Ch 1.2, Forouzan Ch 1.2) | high | none (theory) |

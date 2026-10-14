@@ -46,7 +46,7 @@ The 15 views are:
    - Dijkstra shortest-path router on a 6-node graph
 4. **3D WebGL Gallery** (Three.js): topologies, optical-fibre total internal reflection, OSI encapsulation, OSPF areas, datagram versus virtual circuit.
 5. **Motion Graphics** (Canvas): token bucket, TCP AIMD, ARP, DNS.
-6. **Question Solver**: worked solutions to selected questions from the December 2022 and December 2023 papers, with a concise/detailed toggle, marking notes, a mastery checklist stored in `localStorage` and a print view.
+6. **Question Solver**: worked solutions to all 30 questions of each of the December 2022 and December 2023 papers (10 in Part A and 20 in Part B), with a concise/detailed toggle, marking notes that follow the KTU valuation schemes, a mastery checklist stored in `localStorage` and a print view.
 7. **Educational Games**: seven games (A to G).
 8. **Knowledge Graph**: force-directed map of protocols and concepts.
 9. **Real-World Apps**, 10. **Latest Advancements**, 11. **Research Explorer**: case studies, recent developments and cited papers with DOIs.
@@ -61,7 +61,8 @@ The calculator reports the address class from the first octet and measures "bits
 ## Data
 
 - **Syllabus, solutions and research data**: hand-written data files in `js/data/` (`syllabusData.js`, `examSolutionsData.js`, `industryResearchData.js`, `careerData.js`).
-- **Past-paper coverage is partial**: 16 of the 30 sub-questions on the December 2022 paper and 5 of 30 on the December 2023 paper have worked solutions. The app says "selected questions" and shows the count per paper.
+- **Past-paper coverage is complete**: worked solutions for 30 of 30 questions on each of the December 2022 and December 2023 papers (10 Part A questions and 20 Part B sub-questions each; in the exam a student answers one question from each module's pair). The counters in the app are computed from `examSolutionsData.js`, not typed by hand.
+- **Numerical answers are machine-checked**: `scripts/verify_solutions.js` recomputes every numerical or algorithmic result (propagation delay, CRC, parity, subnetting, bit and byte stuffing, Manchester codes, the distance vector and Dijkstra examples, header and frame sizes, multicast address mapping) and checks that the value appears in the written solution. Theory answers follow standard textbooks and are listed with a confidence level in `docs/review-checklist.md`.
 - **Salary ranges** are indicative. Each card names its sources (AmbitionBox, Glassdoor, Payscale and others), but the figures are not linked to the underlying reports and have not been independently verified.
 - **NetPulse telemetry** (latency, drops) is simulated.
 - **Reference PDFs** in `docs/reference_materials/` are third-party documents. See `THIRD_PARTY_NOTICES.md`.
@@ -71,12 +72,15 @@ The calculator reports the address class from the first octet and measures "bits
 
 | Check | Value | Status | How measured | Date |
 |---|---|---|---|---|
-| Unit tests (`node --test`) | 21 of 21 pass | Verified (re-run 2026-10-13) | `node --test`, Node v22.20.0 | 2026-10-13 |
-| Horizontal overflow, 15 views at 390 px | 0 px on all views | Verified (re-run 2026-10-13) | Playwright, `scrollWidth - clientWidth` | 2026-10-13 |
-| Horizontal overflow, 15 views at 1280 px | 0 px on all views | Verified (re-run 2026-10-13) | Playwright, same method | 2026-10-13 |
-| Console errors on load and navigation | 0 (only a missing `favicon.ico`) | Verified (re-run 2026-10-13) | Playwright console listener | 2026-10-13 |
+| Unit tests (`node --test`) | 30 of 30 pass | Verified (re-run 2026-10-14) | `node --test`, Node v22.20.0 | 2026-10-14 |
+| Numerical answers in worked solutions | 86 of 86 checks pass | Verified (re-run 2026-10-14) | `npm run verify` (`scripts/verify_solutions.js`) | 2026-10-14 |
+| Past-paper coverage | 30 of 30 questions on each of 2 papers | Verified (re-run 2026-10-14) | `npm run verify`, counted from `examSolutionsData.js` | 2026-10-14 |
+| Worked solutions render in the browser | 60 solution cards, 0 KaTeX errors, 0 literal `$` | Verified (re-run 2026-10-14) | Playwright, both papers at 390 px and 1280 px | 2026-10-14 |
+| Horizontal overflow, 15 views at 390 px | 0 px on all views | Verified (re-run 2026-10-14) | Playwright, `scrollWidth - clientWidth` | 2026-10-13 |
+| Horizontal overflow, 15 views at 1280 px | 0 px on all views | Verified (re-run 2026-10-14) | Playwright, same method | 2026-10-13 |
+| Console errors on load and navigation | 0 (only a missing `favicon.ico`) | Verified (re-run 2026-10-14) | Playwright console listener | 2026-10-13 |
 
-Run log: `docs/runs/2026-10-13-tests-and-mobile-checks.md`.
+Run logs: `docs/runs/2026-10-13-tests-and-mobile-checks.md` and `docs/runs/2026-10-14-complete-past-paper-solutions.md`.
 
 ## Tech stack
 
@@ -113,7 +117,15 @@ Run the tests (no install step, there are no dependencies):
 node --test
 ```
 
-Expected: `# tests 21`, `# pass 21`, `# fail 0`.
+Expected: `# tests 30`, `# pass 30`, `# fail 0`.
+
+Recompute and check every numerical answer in the worked solutions:
+
+```bash
+npm run verify
+```
+
+Expected: `86/86 numeric checks passed`, then `coverage cst303-dec2022: 30/30` and `coverage cst303-dec2023: 30/30`.
 
 ## Project structure
 
@@ -125,16 +137,20 @@ cst303-computer-networks-dashboard/
 │   ├── app.js                  # view router, theme, mobile menu
 │   ├── lib/
 │   │   ├── subnet.js           # subnetting maths (unit-tested)
+│   │   ├── coverage.js         # past-paper coverage counters (unit-tested)
 │   │   └── richText.js         # Markdown + TeX renderer (unit-tested)
 │   ├── data/                   # syllabus, worked solutions, research, careers
 │   └── modules/                # one module per feature
+├── scripts/
+│   └── verify_solutions.js     # recomputes every numerical answer in the worked solutions
 ├── tests/                      # node --test unit tests
 ├── docs/
 │   ├── reference_materials/    # third-party PDFs (see THIRD_PARTY_NOTICES.md)
+│   ├── review-checklist.md     # every new solution with a confidence level
 │   ├── runs/                   # dated run logs
 │   ├── screenshots/
 │   └── superpowers/plans/      # original implementation plan
-├── package.json                # test script only, no dependencies
+├── package.json                # test and verify scripts, no dependencies
 ├── LICENSE
 └── THIRD_PARTY_NOTICES.md
 ```
@@ -146,7 +162,7 @@ cst303-computer-networks-dashboard/
 
 ## Limitations
 
-- Worked solutions cover selected questions only (16 of 30 and 5 of 30), not full papers.
+- Theory answers (as opposed to the numerical ones) cannot be machine-checked. They are model answers in exam-answer form from standard textbooks, not an official KTU answer key, and their review status is in `docs/review-checklist.md`.
 - Salary figures are indicative and unverified; NetPulse telemetry is simulated.
 - The subnet tool accepts prefixes /1 to /30 and uses classful defaults only to report bits borrowed.
 - Libraries load from a CDN, so the app needs a connection.
@@ -155,7 +171,7 @@ cst303-computer-networks-dashboard/
 
 ## Future scope
 
-- Worked solutions for the remaining past-paper questions.
+- More past papers (the December 2021 and 2024 papers are in `docs/reference_materials/` but have no worked solutions).
 - Source links and dates for the salary ranges.
 - Committed Playwright smoke tests.
 - Bundling the libraries locally so the app works offline.

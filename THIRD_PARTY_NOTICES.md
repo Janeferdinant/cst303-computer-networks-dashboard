@@ -1,6 +1,6 @@
 # Third-party notices
 
-Original work in this repository is © Jane Rose Ferdinant, licensed CC BY-NC-SA 4.0 (see `LICENSE`).
+Original work in this repository is © Jane Rose Ferdinant, licensed CC BY-NC-ND 4.0 (see `LICENSE`).
 The licence does **not** apply to the third-party material listed below, which keeps its own copyright and terms.
 
 ## 1. Reference PDFs in `docs/reference_materials/`

@@ -1,6 +1,6 @@
 # NetVerse 3D: an interactive 3D learning dashboard for KTU CST303 Computer Networks
 
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 [![Live demo](https://img.shields.io/badge/Live%20demo-Vercel-black.svg)](https://cst303-computer-networks-dashboard.vercel.app)
 
 ## Overview
@@ -168,7 +168,7 @@ cst303-computer-networks-dashboard/
 
 ## License
 
-Original work © Jane Rose Ferdinant, licensed CC BY-NC-SA 4.0. Third-party components retain their own licenses; see THIRD_PARTY_NOTICES.md.
+Original work © Jane Rose Ferdinant, licensed CC BY-NC-ND 4.0. Third-party components retain their own licenses; see THIRD_PARTY_NOTICES.md.
 
 ## Author
 
